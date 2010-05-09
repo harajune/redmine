@@ -7,6 +7,7 @@
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 Encoding.default_external = "UTF-8"
+#Encoding.default_internal = "UTF-8"
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -53,6 +54,8 @@ Rails::Initializer.run do |config|
 
   config.gem 'rubytree', :lib => 'tree'
   
+  config.gem "rails", :version=> "2.3.5"
+
   # Load any local configuration that is kept out of source control
   # (e.g. gems, patches).
   if File.exists?(File.join(File.dirname(__FILE__), 'additional_environment.rb'))
