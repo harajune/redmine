@@ -1,3 +1,6 @@
 [submodule "vendor/plugins/redmine_backlogs"]
 	path = vendor/plugins/redmine_backlogs
 	url = http://github.com/relaxdiego/redmine_backlogs.git
+[submodule "vendor/rails"]
+	path = vendor/rails
+	url = git@github.com:harajune/rails.git
