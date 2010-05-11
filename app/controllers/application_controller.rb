@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  before_filter :user_setup, :check_if_login_required, :set_localization
+  before_filter :user_setup, :check_if_login_required, :set_localization, :params_filter
   filter_parameter_logging :password
   protect_from_forgery
   
@@ -47,6 +47,25 @@ class ApplicationController < ActionController::Base
   
   REDMINE_SUPPORTED_SCM.each do |scm|
     require_dependency "repository/#{scm.underscore}"
+  end
+
+  def params_filter
+      self.utf8nize(params)
+      
+  end
+
+  def utf8nize(obj)
+      if obj.is_a? String
+          obj.force_encoding("UTF-8")
+      elsif obj.is_a? Hash
+          obj.each {|key, val|
+              obj[key] = self.utf8nize(val)
+          }
+      elsif obj.is_a? Array
+          obj.map {|val| self.utf8nize(val)}
+      else
+          obj
+      end
   end
 
   def user_setup

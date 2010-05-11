@@ -181,9 +181,6 @@ class IssuesController < ApplicationController
     # User can change issue attributes only if he has :edit permission or if a workflow transition is allowed
     if (@edit_allowed || !@allowed_statuses.empty?) && params[:issue]
       attrs = params[:issue].dup
-      attrs.each{ |key, val|
-          attrs[key] = val.force_encoding("UTF-8") if val.is_a? String
-      }
       attrs.delete_if {|k,v| !UPDATABLE_ATTRS_ON_TRANSITION.include?(k) } unless @edit_allowed
       attrs.delete(:status_id) unless @allowed_statuses.detect {|s| s.id.to_s == attrs[:status_id].to_s}
       @issue.attributes = attrs
